@@ -84,4 +84,19 @@ def cholesky(a):
                 L[j][i] = (a[j][i] - sum)/L[i][i]
     return L
 
-def gauss(A,b)
+def gauss(n):
+    A = [[0] for i in range(n)]
+    for i in range(n):
+        A[i][i] = 5
+        if i < n-1:
+            A[i+1][i] = -2
+            A[i][i+1] = -2
+    b = []
+    b[0] = 3
+    b[n-1] = 3
+    for i in range(1,n-1):
+        b[i] = 1
+        
+print(gauss[10])
+print(gauss[10000])
+
