@@ -25,7 +25,7 @@ def bis(a,b):
 print("Bisection method on both roots.")
 #f(0) > 0,f(1) < 0,f(3) > 0
 print(bis(0,1))
-print(bis(1,2))
+print(bis(1,3))
 def nnew(x0,count):
     if abs(f(x0)) - error > 0:
         count+=1
@@ -55,6 +55,6 @@ def sec(x0,x1,count):
     else:
         print("Number of iterations:",count)
         return round(x1,5)
-print("Secant method with initial guesses (0,1),(2.5,3) respectively.")
+print("Secant method with initial guesses (0,1),(2,3) respectively.")
 print(sec(1,0,0))
 print(sec(3,2,0))
