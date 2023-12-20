@@ -96,7 +96,19 @@ def gauss(n):
     b[n-1] = 3
     for i in range(1,n-1):
         b[i] = 1
-        
+    x = [0 for i in range(n)]
+    while :
+        x1 = x
+        for i in range(n):
+            sum1 = 0
+            sum2 = 0
+            for j in range(i):
+                sum1 = sum1 + A[i][j]*x1[j]
+            for j in range(i+1,n):
+                sum2 = sum2 + A[i][j]*x[j]
+            x1[i] = (1/A[i][i])*(b[i] - sum1 - sum2)
+        x = x1
+    return x
 print(gauss[10])
 print(gauss[10000])
 
