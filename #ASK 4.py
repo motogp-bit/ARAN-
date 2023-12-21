@@ -31,22 +31,38 @@ A = [[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0]]
 
 
-print(makeG(A,q))
-b = [1] * n
-for i in range(15):
-    b = np.dot(A,b)
-    norm = np.linalg.norm(b)
-    b = [i/norm for i in b]
-print(b)
+G = makeG(A,q)
+
+def findEigenvector(G):
+    b = [1] * n
+    for i in range(15):
+        b = np.dot(G,b)
+        norm = np.linalg.norm(b)
+        b = [i/norm for i in b]
+    return b
+print(findEigenvector(G))
 
 #Θα βελτιωσουμε τη σημαντικοτητα της πρωτης σελιδας
 A[0] = [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0]
-print(makeG(A,q))
+G = makeG(A,q)
+print(findEigenvector(G))
 #Η σημαντικοτητα της σχεδον διπλασιαστηκε
 
 q = 0.02
-print(makeG(A,q))
+G = makeG(A,q)
+print(findEigenvector(G))
 q = 0.6
-print(makeG(A,q))
-Α[7][10] = 3
-Α[11][11] = 3
+G = makeG(A,q)
+print(findEigenvector(G))
+
+
+A[7][10] = 3
+A[11][11] = 3
+q = 0.15
+G = makeG(A,q)
+print(findEigenvector(G))
+
+arr = np.delete(A,9,axis = 0)
+arr = np.delete(arr,[0],axis = 9)
+G = makeG(A,q)
+print(findEigenvector(G))
