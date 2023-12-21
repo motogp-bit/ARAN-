@@ -23,9 +23,9 @@ while (i < 2):
 for i in set1:
     print(i)
 
-'''def bis(a,b):
+def bis(a,b):
     c = (b-a) * random.random() + a
-    while abs(f(c)) - error > 0:
+    while abs(f(c)) - error > 0 and a!=b:
         if (f(c) < 0):
             b = c
         else:
@@ -34,13 +34,25 @@ for i in set1:
     return round(c,5)            
 set2 = set({})
 i = -2
-while (i+2/3<2):
-    set2.add(bis(i,i+2/3))
-    i+=(2/3)
+while i+1<2:
+    set2.add(bis(i,i+1))
+    i+=1
 for i in set2:
     print(i)   
-'''
 
+#running bisection 20 times on [-2,-1] to compare convergence
+for j in range(20):
+    c = (b-a) * random.random() + a
+    counts = 0
+    while abs(f(c)) - error > 0 and a!=b:
+        if (f(c) < 0):
+            b = c
+        else:
+            a = c     
+        c = (b-a) * random.random() + a
+        counts+=1
+    print(counts)
+    
 def sec(a,b,c):
     if abs(f(c)) - error > 0:
         r = f(c) / f(b)

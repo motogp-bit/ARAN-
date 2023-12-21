@@ -97,7 +97,9 @@ def gauss(n):
     for i in range(1,n-1):
         b[i] = 1
     x = [0 for i in range(n)]
-    while :
+    exact = np.linalg.solve(A,b)
+    r = [exact[i] - x[i] for i in range(n)]
+    while np.linalg.norm(r,np.inf) > 0.0001:
         x1 = x
         for i in range(n):
             sum1 = 0
@@ -108,6 +110,7 @@ def gauss(n):
                 sum2 = sum2 + A[i][j]*x[j]
             x1[i] = (1/A[i][i])*(b[i] - sum1 - sum2)
         x = x1
+        r = [exact[i] - x[i] for i in range(n)]
     return x
 print(gauss[10])
 print(gauss[10000])
