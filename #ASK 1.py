@@ -32,9 +32,9 @@ def nnew(x0,count):
     else:
         #print("Number of iterations:",count)
         return round(x0,5)
-#print("Newton method on with initial guesses 1 and 2 respectively,numerical derivative.")
+#print("Newton method on with initial guesses 1 and 2.5 respectively,numerical derivative.")
 #print(nnew(1,0))
-#print(nnew(2,0))
+#print(nnew(2.5,0))
 def dnew(x0,count):
     if abs(f(x0)) - error > 0:
         count+=1
@@ -42,9 +42,9 @@ def dnew(x0,count):
     else:
         #print("Number of iterations:",count)
         return round(x0,5)
-#print("Newton method with initial guesses 1 and 2 respectively,exact derivative.")
+#print("Newton method with initial guesses 1 and 2.5 respectively,exact derivative.")
 #print(dnew(1,0))
-#print(dnew(2,0))
+#print(dnew(2.5,0))
 
 def sec(x0,x1,count):
     if abs(f(x1)) - error > 0:
@@ -53,6 +53,6 @@ def sec(x0,x1,count):
     else:
         print("Number of iterations:",count)
         return round(x1,5)
-#print("Secant method with initial guesses (0,1),(2,3) respectively.")
+#print("Secant method with initial guesses (0,1),(2.5,3) respectively.")
 #print(sec(1,0,0))
-#print(sec(3,2,0))
+#print(sec(3,2.5,0))
