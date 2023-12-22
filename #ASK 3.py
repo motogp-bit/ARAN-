@@ -123,6 +123,9 @@ def gauss(n):
         x1 = iterate(x)
         r = [x1[i] - x[i] for i in range(n)]
         if np.linalg.norm(r,np.inf) < 0.0001:
-            return x
+            u = [round(i,4) for i in x]
+            return u
         x = x1
+#print(gauss(10))
+#print(gauss(10000))
 
