@@ -1,22 +1,16 @@
 import numpy as np
-q = 0.15
-n = 15
 
-def makeG(A,q):
+def makeG(A,q,n):
     G = []
     for i in range(n):
         temp = []
         for j in range(n):
-            if A[j][i] == 0:
-                temp.append(1/100) #q/n
-            else:
-                sum = 0
-                for z in range(n):
-                   sum+=A[j][z]
-                temp.append(1/100 + 0.85/sum)
+            sum = 0
+            for k in range(n):
+                sum+= A[j][k]
+            temp.append((q/n) + (A[j][i]*(1-q) / sum))
         G.append(temp)
     return G
-G = [[0]*n]*n
 A = [[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
@@ -33,41 +27,58 @@ A = [[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0]]
 
-
-G = makeG(A,q)
-
-def findEigenvector(G):
+def findEigenvector(G,n):
     b = [1] * n
     for i in range(20):
-        b = np.dot(A,b)
+        b = np.dot(G,b)
         norm = np.linalg.norm(b)
         b = [i/norm for i in b]
     sum = 0
-    return b
+    for i in b:
+        sum+=i
+    u = [j/sum for j in b]
+    return u
     
-print(findEigenvector(G))
+G = makeG(A,0.15,15) 
+o = findEigenvector(G,15)
+#print(o)
 
-#Θα βελτιωσουμε τη σημαντικοτητα της πρωτης σελιδας
 A[0] = [0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0]
-G = makeG(A,q)
-#print(findEigenvector(G))
-#Η σημαντικοτητα της σχεδον διπλασιαστηκε
-
-q = 0.02
-G = makeG(A,q)
-#print(findEigenvector(G))
-q = 0.6
-G = makeG(A,q)
-#print(findEigenvector(G))
+G = makeG(A,0.15,15)
+#print(findEigenvector(G,15))
 
 
+L = makeG(A,0.02,15)
+#print(findEigenvector(L,15))
+U = makeG(A,0.6,15)
+#print(findEigenvector(U,15))
+Z = [findEigenvector(G,15)[j] - findEigenvector(L,15)[j] for j in range(15)]
+#print(Z)
+Z = [findEigenvector(G,15)[j] - findEigenvector(U,15)[j] for j in range(15)]
+#print(Z)
+
+A[0] = [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] 
+#reverting to original 
 A[7][10] = 3
-A[11][11] = 3
-q = 0.15
-G = makeG(A,q)
-#print(findEigenvector(G))
+A[11][10] = 3
+G = makeG(A,0.15,15)
+#print(findEigenvector(G,15))
 
-arr = np.delete(A,9,axis = 0)
-arr = np.delete(arr,[0],axis = 9)
-G = makeG(A,q)
-#print(findEigenvector(G))
+newA = [[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0]]
+I = makeG(newA,0.15,14)
+k = findEigenvector(I,14)
+F = [o[j] - k[j] for j in range(14)]
+#print(F)
